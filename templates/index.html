@@ -134,7 +134,7 @@
     function searchControl() {
         var controlId = $('#control_id').val();
         $.ajax({
-            url: 'https://kpmgwork-092490517bd6.herokuapp.com//search',
+            url: 'https://kpmgwork-092490517bd6.herokuapp.com/search',
             type: 'POST',
             data: {control_id: controlId},
             success: function(response) {
