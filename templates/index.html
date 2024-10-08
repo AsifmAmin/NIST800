@@ -6,96 +6,113 @@
     <title>NIST 800-53 Control Search</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-        }
-        .search-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        input[type="text"] {
-            width: 70%;
-            padding: 10px;
-            margin-right: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #2980b9;
-        }
-        #result {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        h2, h3, h4 {
-            color: #2c3e50;
-        }
-        .related-control {
-            background-color: #ecf0f1;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-        }
-        .related-control-header {
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .related-control-content {
-            margin-top: 10px;
-        }
-        .toggle-btn {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            cursor: pointer;
-        }
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #2c3e50;
+    margin: 0;
+}
+
+.keyword-search {
+    display: flex;
+    align-items: right;
+}
+
+.keyword-search input {
+    width: 200px;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.main-search-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.search-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: 70%;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+#result {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+h2, h3, h4 {
+    color: #2c3e50;
+}
 
 .container {
     display: flex;
     justify-content: space-between;
 }
+
 .main-content {
     width: 65%;
     padding-right: 20px;
 }
+
 .side-content {
     width: 30%;
 }
+
 .variations-container {
     background-color: #f8f9fa;
     padding: 15px;
     border-radius: 5px;
 }
+
 .variations-container h3 {
     margin-top: 0;
 }
+
 .control-variation {
     background-color: #ffffff;
     padding: 10px;
@@ -103,142 +120,348 @@
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12);
 }
-        .control-variation-header {
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+
+.control-variation-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .control-variation-content {
     display: none;
     margin-top: 10px;
 }
-        p {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
+
+.related-control {
+    background-color: #ecf0f1;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.related-control-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.related-control-content {
+    margin-top: 10px;
+}
+
+.toggle-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+p {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.variation h6 {
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.variation-content {
+    margin-left: 20px;
+    border-left: 2px solid #ccc;
+    padding-left: 10px;
+}
+
+.toggle-variation {
+    font-size: 0.8em;
+    color: blue;
+    margin-left: 10px;
+}
+
+.global-controls, .section-controls {
+    margin-bottom: 20px;
+}
+
+.global-controls button, .section-controls button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.global-controls button:hover, .section-controls button:hover {
+    background-color: #45a049;
+}
+
+.search-result {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
     </style>
-</head>
 <body>
-    <h1>NIST 800-53 Control Search</h1>
-    <div class="search-container">
+    <header>
+        <h1>NIST 800-53 Control Search</h1>
+        <div class="keyword-search">
+            <input type="text" id="keyword" placeholder="Search by Keyword">
+            <button onclick="searchKeyword()">Search</button>
+        </div>
+    </header>
+
+    <div class="main-search-container">
         <input type="text" id="control_id" placeholder="Enter Control ID (e.g., AC-1)">
-        <button onclick="searchControl()">Search</button>
+        <button onclick="searchControl()">Search by ID</button>
     </div>
-<div class="container">
-    <div id="result" class="main-content"></div>
-    <div id="variations" class="side-content"></div>
-</div>
+
+
+    <div class="container">
+        <div id="result" class="main-content"></div>
+        <div id="variations" class="side-content">
+            <div class="section-controls">
+                <button id="expandVariations">Expand Variations</button>
+                <button id="collapseVariations">Collapse Variations</button>
+            </div>
+            <div id="variationsContent"></div>
+        </div>
+    </div>
+
+    <div id="related-controls">
+            <div class="global-controls">
+        <button id="expandAll">Expand All</button>
+        <button id="collapseAll">Collapse All</button>
+    </div>
+        <div id="relatedControlsContent"></div>
+    </div>
 
     <script>
-    function searchControl() {
-        var controlId = $('#control_id').val();
-        $.ajax({
-            url: 'https://kpmgwork-092490517bd6.herokuapp.com/search',
-            type: 'POST',
-            data: {control_id: controlId},
-            success: function(response) {
-                displayMainControl(response, controlId);
-                searchControlVariations(controlId);
-            },
-            error: function() {
-                $('#result').html('<p>Control not found</p>');
-            }
-        });
-    }
-
-    function displayMainControl(response, controlId) {
-        var result = '<h2>Control: ' + controlId + '</h2>';
-        result += '<h3>Control Text:</h3><p>' + formatControlText(response.control_text) + '</p>';
-        result += '<h3>Discussion:</h3><p>' + response.discussion + '</p>';
-        result += '<h3>Related Controls:</h3>';
-        response.related_controls.forEach(function(rc, index) {
-            result += '<div class="related-control">';
-            result += '<div class="related-control-header" onclick="toggleRelatedControl(' + index + ')">';
-            result += '<h4>' + rc.id + '</h4>';
-            result += '<button class="toggle-btn">Hide</button>';
-            result += '</div>';
-            result += '<div class="related-control-content" id="related-control-' + index + '">';
-            result += '<p><strong>Text:</strong> ' + formatControlText(rc.text) + '</p>';
-            result += '<p><strong>Discussion:</strong> ' + rc.discussion + '</p>';
-            result += '</div></div>';
-        });
-        $('#result').html(result);
-    }
-
-function searchControlVariations(controlId) {
-    var variationsHtml = '<div class="variations-container">';
-    variationsHtml += '<h3>Control Variations:</h3>';
-    var variationCount = 1;
-
-    function searchVariation(variation) {
-        $.ajax({
-            url: 'https://kpmgwork-092490517bd6.herokuapp.com/search',
-            type: 'POST',
-            data: {control_id: variation},
-            success: function(response) {
-                variationsHtml += '<div class="control-variation">';
-                variationsHtml += '<div class="control-variation-header">';
-                variationsHtml += '<h4>' + variation + '</h4>';
-                variationsHtml += '<button class="toggle-btn" onclick="toggleControlVariation(this)">Show</button>';
-                variationsHtml += '</div>';
-                variationsHtml += '<div class="control-variation-content" style="display:none;">';
-                variationsHtml += '<p><strong>Text:</strong> ' + formatControlText(response.control_text) + '</p>';
-                variationsHtml += '<p><strong>Discussion:</strong> ' + response.discussion + '</p>';
-                variationsHtml += '</div></div>';
-
-                $('#variations').html(variationsHtml);
-
-                // Search for the next variation
-                searchVariation(controlId + '(' + (++variationCount) + ')');
-            },
-            error: function() {
-                // No more variations found, stop searching
-                if (variationCount === 1) {
-                    $('#variations').html('<p>No variations found</p>');
+        function searchControl() {
+            var controlId = $('#control_id').val();
+            $.ajax({
+                url: '/search',
+                type: 'POST',
+                data: {control_id: controlId},
+                success: function(response) {
+                    displayMainControl(response.base_control);
+                    displayControlVariations(response.variations);
+                    displayRelatedControls(response.related_controls);
+                },
+                error: function() {
+                    $('#result').html('<p>Control not found</p>');
+                    $('#variationsContent').html('');
+                    $('#relatedControlsContent').html('');
                 }
-            }
-        });
-    }
-
-    // Start searching from the first variation
-    searchVariation(controlId + '(' + variationCount + ')');
-}
-
-function toggleControlVariation(button) {
-    var $button = $(button);
-    var $content = $button.closest('.control-variation').find('.control-variation-content');
-
-    if ($content.is(':visible')) {
-        $content.hide();
-        $button.text('Show');
-    } else {
-        $content.show();
-        $button.text('Hide');
-    }
-}
-    function toggleRelatedControl(index) {
-        var content = $('#related-control-' + index);
-        var button = content.siblings('.related-control-header').find('.toggle-btn');
-        if (content.is(':visible')) {
-            content.hide();
-            button.text('Show');
-        } else {
-            content.show();
-            button.text('Hide');
+            });
         }
+
+        function displayMainControl(control) {
+            var result = '<h2>Control: ' + control.id + '</h2>';
+            result += '<h3>Control Text:</h3><p>' + formatControlText(control.text) + '</p>';
+            result += '<h3>Discussion:</h3><p>' + control.discussion + '</p>';
+            $('#result').html(result);
+        }
+
+        function displayControlVariations(variations) {
+            var variationsHtml = '<h3>Control Variations:</h3>';
+            variations.forEach(function(variation, index) {
+                if (variation.id.includes('(')) {
+                    variationsHtml += '<div class="control-variation">';
+                    variationsHtml += '<div class="control-variation-header">';
+                    variationsHtml += '<h4>' + variation.id + '</h4>';
+                    variationsHtml += '<button class="toggle-btn" onclick="toggleControlVariation(this)">Show</button>';
+                    variationsHtml += '</div>';
+                    variationsHtml += '<div class="control-variation-content" style="display:none;">';
+                    variationsHtml += '<p><strong>Text:</strong> ' + formatControlText(variation.text) + '</p>';
+                    variationsHtml += '<p><strong>Discussion:</strong> ' + variation.discussion + '</p>';
+                    variationsHtml += '</div></div>';
+                }
+            });
+            $('#variationsContent').html(variationsHtml);
+        }
+
+        function displayRelatedControls(relatedControls) {
+            var relatedHtml = '<h3>Related Controls:</h3>';
+            relatedControls.forEach(function(rc, index) {
+                relatedHtml += '<div class="related-control">';
+                relatedHtml += '<div class="related-control-header" onclick="toggleRelatedControl(' + index + ')">';
+                relatedHtml += '<h4>' + rc.id + '</h4>';
+                relatedHtml += '<button class="toggle-btn">Show</button>';
+                relatedHtml += '</div>';
+                relatedHtml += '<div class="related-control-content" id="related-control-' + index + '">';
+                relatedHtml += '<p><strong>Text:</strong> ' + formatControlText(rc.text) + '</p>';
+                relatedHtml += '<p><strong>Discussion:</strong> ' + rc.discussion + '</p>';
+
+                if (rc.variations && rc.variations.length > 0) {
+                    relatedHtml += '<div class="related-control-variations">';
+                    relatedHtml += '<h5>Variations:</h5>';
+                    rc.variations.forEach(function(variation, varIndex) {
+                        relatedHtml += '<div class="variation">';
+                        relatedHtml += '<h6 onclick="toggleVariation(this)">' + variation.id + ' <span class="toggle-variation">Show</span></h6>';
+                        relatedHtml += '<div class="variation-content" style="display:none;">';
+                        relatedHtml += '<p><strong>Text:</strong> ' + formatControlText(variation.text) + '</p>';
+                        relatedHtml += '<p><strong>Discussion:</strong> ' + variation.discussion + '</p>';
+                        relatedHtml += '</div></div>';
+                    });
+                    relatedHtml += '</div>';
+                }
+
+                relatedHtml += '</div></div>';
+            });
+            $('#relatedControlsContent').html(relatedHtml);
+        }
+
+        function toggleControlVariation(button) {
+            var $button = $(button);
+            var $content = $button.closest('.control-variation').find('.control-variation-content');
+            toggleContent($content, $button);
+        }
+
+        function toggleRelatedControl(index) {
+            var $content = $('#related-control-' + index);
+            var $button = $content.siblings('.related-control-header').find('.toggle-btn');
+            toggleContent($content, $button);
+        }
+
+        function toggleVariation(element) {
+            var $content = $(element).next('.variation-content');
+            var $toggle = $(element).find('.toggle-variation');
+            toggleContent($content, $toggle);
+        }
+
+        function toggleContent($content, $button) {
+            if ($content.is(':visible')) {
+                $content.hide();
+                $button.text('Show');
+            } else {
+                $content.show();
+                $button.text('Hide');
+            }
+        }
+
+        function formatControlText(text) {
+            var lines = text.split('\n');
+            var formattedLines = lines.map(function(line) {
+                if (/^[a-z]\.\s/.test(line) || /^\d+\.\s/.test(line) || /^\([a-z]\)\s/.test(line)) {
+                    return '<br>' + line;
+                }
+                return line;
+            });
+            return formattedLines.join(' ');
+        }
+
+           function expandCollapseAll(expand) {
+        expandCollapseRelated(expand);
     }
 
-    function formatControlText(text) {
-        var lines = text.split('\n');
-        var formattedLines = lines.map(function(line) {
-            if (/^[a-z]\.\s/.test(line) || /^\d+\.\s/.test(line) || /^\([a-z]\)\s/.test(line)) {
-                return '<br>' + line;
+    function expandCollapseVariations(expand) {
+        $('#variationsContent .control-variation-content').each(function() {
+            var $content = $(this);
+            var $button = $content.siblings('.control-variation-header').find('.toggle-btn');
+            if (expand) {
+                $content.show();
+                $button.text('Hide');
+            } else {
+                $content.hide();
+                $button.text('Show');
             }
-            return line;
         });
-        return formattedLines.join(' ');
     }
-    </script>
+
+    function expandCollapseRelated(expand) {
+        $('#relatedControlsContent .related-control-content, #relatedControlsContent .variation-content').each(function() {
+            var $content = $(this);
+            var $button = $content.siblings().find('.toggle-btn, .toggle-variation');
+            if (expand) {
+                $content.show();
+                $button.text('Hide');
+            } else {
+                $content.hide();
+                $button.text('Show');
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $('#expandAll').click(function() {
+            expandCollapseRelated(true);
+        });
+
+        $('#collapseAll').click(function() {
+            expandCollapseRelated(false);
+        });
+
+        $('#expandVariations').click(function() {
+            expandCollapseVariations(true);
+        });
+
+        $('#collapseVariations').click(function() {
+            expandCollapseVariations(false);
+        });
+
+        $('#expandRelated').click(function() {
+            expandCollapseRelated(true);
+        });
+
+        $('#collapseRelated').click(function() {
+            expandCollapseRelated(false);
+        });
+    });
+
+
+            function searchKeyword() {
+            var keyword = $('#keyword').val().toLowerCase();
+            $.ajax({
+                url: '/search_keyword',
+                type: 'POST',
+                data: {keyword: keyword},
+                success: function(response) {
+                    displayKeywordResults(response, keyword);
+                },
+                error: function() {
+                    $('#result').html('<p>Error occurred during search</p>');
+                    $('#variationsContent').html('');
+                    $('#relatedControlsContent').html('');
+                }
+            });
+        }
+
+        function displayKeywordResults(results, keyword) {
+            var resultsHtml = '<h2>Search Results for: "' + keyword + '"</h2>';
+            if (results.length === 0) {
+                resultsHtml += '<p>No results found.</p>';
+            } else {
+                results.forEach(function(result) {
+                    resultsHtml += '<div class="search-result">';
+                    resultsHtml += '<h3>Control: ' + result.id + '</h3>';
+                    resultsHtml += '<h4>Control Text:</h4>';
+                    resultsHtml += '<p>' + highlightKeyword(result.text, keyword) + '</p>';
+                    resultsHtml += '<h4>Discussion:</h4>';
+                    resultsHtml += '<p>' + highlightKeyword(result.discussion, keyword) + '</p>';
+                    resultsHtml += '</div>';
+                });
+            }
+            $('#result').html(resultsHtml);
+            $('#variationsContent').html('');
+            $('#relatedControlsContent').html('');
+        }
+
+        function highlightKeyword(text, keyword) {
+            if (!text) return '';
+            var regex = new RegExp('(' + keyword + ')', 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+</script>
 </body>
 </html>
